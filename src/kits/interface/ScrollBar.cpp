@@ -883,8 +883,8 @@ BScrollBar::Proportion() const
 void
 BScrollBar::SetRange(float min, float max)
 {
-	if (min > max || isnanf(min) || isnanf(max)
-		|| isinff(min) || isinff(max)) {
+	if (min > max || isnan(min) || isnan(max)
+		|| isinf(min) || isinf(max)) {
 		min = 0.0f;
 		max = 0.0f;
 	}
