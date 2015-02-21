@@ -18,52 +18,59 @@ UseLibraryHeaders agg icon ;
 
 UsePrivateHeaders shared ;
 
+local sources =
+	# flat_icon
+	FlatIconFormat.cpp
+	FlatIconImporter.cpp
+	LittleEndianBuffer.cpp
+	PathCommandQueue.cpp
+
+	# message
+	Defines.cpp
+	MessageImporter.cpp
+
+	# shape
+	PathContainer.cpp
+	Shape.cpp
+	ShapeContainer.cpp
+	VectorPath.cpp
+
+	# style
+	GradientTransformable.cpp
+	Style.cpp
+	StyleContainer.cpp
+
+	# transformable
+	Transformable.cpp
+
+	# transformer
+	AffineTransformer.cpp
+	ContourTransformer.cpp
+	PathSource.cpp
+	PerspectiveTransformer.cpp
+	StrokeTransformer.cpp
+	Transformer.cpp
+	TransformerFactory.cpp
+
+	Icon.cpp
+	IconRenderer.cpp
+	IconUtils.cpp
+	;
+
+
+local sourceDir ;
+for sourceDir in $(sourceDirs) {
+	SEARCH_SOURCE
+		+= [ FDirName $(HAIKU_TOP) src libs icon $(sourceDir) ] ;
+}
+
 local architectureObject ;
 for architectureObject in [ MultiArchSubDirSetup ] {
 	on $(architectureObject) {
-		local sourceDir ;
-		for sourceDir in $(sourceDirs) {
-			SEARCH_SOURCE
-				+= [ FDirName $(HAIKU_TOP) src libs icon $(sourceDir) ] ;
-		}
-
-		StaticLibrary [ MultiArchDefaultGristFiles libicon.a ] :
-			# flat_icon
-			FlatIconFormat.cpp
-			FlatIconImporter.cpp
-			LittleEndianBuffer.cpp
-			PathCommandQueue.cpp
-
-			# message
-			Defines.cpp
-			MessageImporter.cpp
-
-			# shape
-			PathContainer.cpp
-			Shape.cpp
-			ShapeContainer.cpp
-			VectorPath.cpp
-
-			# style
-			GradientTransformable.cpp
-			Style.cpp
-			StyleContainer.cpp
-
-			# transformable
-			Transformable.cpp
-
-			# transformer
-			AffineTransformer.cpp
-			ContourTransformer.cpp
-			PathSource.cpp
-			PerspectiveTransformer.cpp
-			StrokeTransformer.cpp
-			Transformer.cpp
-			TransformerFactory.cpp
-
-			Icon.cpp
-			IconRenderer.cpp
-			IconUtils.cpp
-			;
+		StaticLibrary [ MultiArchDefaultGristFiles libicon.a ] : $(sources) ;
 	}
 }
+
+# Build host library
+USES_BE_API on libicon_build.a = true ;
+BuildPlatformStaticLibrary libicon_build.a : $(sources) ;

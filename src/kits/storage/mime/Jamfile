@@ -7,28 +7,34 @@ UsePrivateHeaders app shared storage ;
 # for libbe_test
 UsePublicHeaders [ FDirName add-ons registrar ] ;
 
+local sources =
+	AppMetaMimeCreator.cpp
+	AssociatedTypes.cpp
+	Database.cpp
+	DatabaseDirectory.cpp
+	DatabaseLocation.cpp
+	database_support.cpp
+	InstalledTypes.cpp
+	MimeEntryProcessor.cpp
+	MimeInfoUpdater.cpp
+	MimeSniffer.cpp
+	MimeSnifferAddon.cpp
+	MimeSnifferAddonManager.cpp
+	SnifferRules.cpp
+	Supertype.cpp
+	SupportingApps.cpp
+	TextSnifferAddon.cpp
+	;
+
+
 local architectureObject ;
 for architectureObject in [ MultiArchSubDirSetup ] {
 	on $(architectureObject) {
 		local architecture = $(TARGET_PACKAGING_ARCH) ;
-
-		StaticLibrary [ MultiArchDefaultGristFiles libstorage_kit_mime.a ] :
-			AppMetaMimeCreator.cpp
-			AssociatedTypes.cpp
-			Database.cpp
-			DatabaseDirectory.cpp
-			DatabaseLocation.cpp
-			database_support.cpp
-			InstalledTypes.cpp
-			MimeEntryProcessor.cpp
-			MimeInfoUpdater.cpp
-			MimeSniffer.cpp
-			MimeSnifferAddon.cpp
-			MimeSnifferAddonManager.cpp
-			SnifferRules.cpp
-			Supertype.cpp
-			SupportingApps.cpp
-			TextSnifferAddon.cpp
-			;
+		StaticLibrary [ MultiArchDefaultGristFiles libstorage_kit_mime.a ] : $(sources) ;
 	}
 }
+
+# Build host library
+USES_BE_API on libstorage_kit_mime_build.a = true ;
+BuildPlatformStaticLibrary libstorage_kit_mime_build.a : $(sources) ;

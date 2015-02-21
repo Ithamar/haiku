@@ -52,6 +52,29 @@ for architectureObject in [ MultiArchSubDirSetup ] {
 	}
 }
 
+# Build libbe_build.so
+
+USES_BE_API on libbe_build.so = true ;
+
+MakeLocate libbe_build.so : $(HOST_BUILD_COMPATIBILITY_LIB_DIR) ;
+
+BuildPlatformSharedLibrary libbe_build.so : :
+	<libbe_build>app_kit.o
+	<libbe_build>interface_kit.o
+	<libbe_build>locale_kit.o
+	<libbe_build>storage_kit.o
+	<libbe_build>support_kit.o
+
+	libstorage_kit_mime_build.a
+
+	libicon_build.a
+	libagg_build.a
+
+	$(HOST_LIBSUPC++) $(HOST_LIBSTDC++)
+	icudata icui18n icuio icule iculx icutu icuuc
+	z
+;
+
 # Build libbe_test.so
 
 SetSupportedPlatformsForTarget libbe_test.so : libbe_test ;

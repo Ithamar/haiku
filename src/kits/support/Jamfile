@@ -4,43 +4,48 @@ SetSubDirSupportedPlatforms haiku libbe_test ;
 
 UsePrivateHeaders app interface media shared support ;
 
+UseBuildFeatureHeaders zlib ;
+
+Includes [ FGristFiles ZlibCompressionAlgorithm.cpp ]
+	: [ BuildFeatureAttribute zlib : headers ] ;
+
+
+local sources =
+	Architecture.cpp
+	Archivable.cpp
+	ArchivingManagers.cpp
+	Base64.cpp
+	Beep.cpp
+	BlockCache.cpp
+	BufferedDataIO.cpp
+	BufferIO.cpp
+	ByteOrder.cpp
+	CompressionAlgorithm.cpp
+	DataIO.cpp
+	DataPositionIOWrapper.cpp
+	DateTime.cpp
+	Flattenable.cpp
+	List.cpp
+	Locker.cpp
+	PointerList.cpp
+	Referenceable.cpp
+	StopWatch.cpp
+	String.cpp
+	StringList.cpp
+	Uuid.cpp
+	ZlibCompressionAlgorithm.cpp
+;
+
 local architectureObject ;
 for architectureObject in [ MultiArchSubDirSetup ] {
 	on $(architectureObject) {
 		local architecture = $(TARGET_PACKAGING_ARCH) ;
-
-		UseBuildFeatureHeaders zlib ;
-
-		Includes [ FGristFiles ZlibCompressionAlgorithm.cpp ]
-			: [ BuildFeatureAttribute zlib : headers ] ;
-
-		MergeObject <libbe!$(architecture)>support_kit.o :
-			Architecture.cpp
-			Archivable.cpp
-			ArchivingManagers.cpp
-			Base64.cpp
-			Beep.cpp
-			BlockCache.cpp
-			BufferedDataIO.cpp
-			BufferIO.cpp
-			ByteOrder.cpp
-			CompressionAlgorithm.cpp
-			DataIO.cpp
-			DataPositionIOWrapper.cpp
-			DateTime.cpp
-			Flattenable.cpp
-			List.cpp
-			Locker.cpp
-			PointerList.cpp
-			Referenceable.cpp
-			StopWatch.cpp
-			String.cpp
-			StringList.cpp
-			Uuid.cpp
-			ZlibCompressionAlgorithm.cpp
-			;
-
+		MergeObject <libbe!$(architecture)>support_kit.o : $(sources) ;
 		StaticLibrary [ MultiArchDefaultGristFiles libreferenceable.a ]
 			: : [ FGristFiles Referenceable.o ] ;
 	}
 }
+
+# Build host-only library
+USES_BE_API on <libbe_build>support_kit.o = true ;
+BuildPlatformMergeObjectPIC <libbe_build>support_kit.o : $(sources) ;
