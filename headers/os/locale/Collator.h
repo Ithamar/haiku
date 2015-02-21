@@ -8,11 +8,7 @@
 
 #include <Archivable.h>
 #include <SupportDefs.h>
-
-
-namespace icu {
-	class Collator;
-};
+#include <unicode/coll.h>
 
 class BString;
 class BCollatorAddOn;

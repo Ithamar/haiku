@@ -9,12 +9,10 @@
 #include <Format.h>
 #include <SupportDefs.h>
 
+#include <unicode/tmutfmt.h>
+
 
 class BString;
-
-namespace icu {
-	class TimeUnitFormat;
-}
 
 
 enum time_unit_style {

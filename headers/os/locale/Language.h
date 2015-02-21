@@ -10,15 +10,9 @@
 #include <String.h>
 #include <SupportDefs.h>
 
+#include <unicode/uloc.h>
 
 class BBitmap;
-
-// We must not include the icu headers in there as it could mess up binary
-// compatibility.
-namespace icu {
-	class Locale;
-}
-
 
 enum script_direction {
 	B_LEFT_TO_RIGHT = 0,

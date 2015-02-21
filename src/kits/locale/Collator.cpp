@@ -5,6 +5,9 @@
 */
 
 
+#include <unicode/coll.h>
+#include <unicode/tblcoll.h>
+
 #include <ctype.h>
 #include <stdlib.h>
 
@@ -15,9 +18,6 @@
 #include <UnicodeChar.h>
 #include <String.h>
 #include <Message.h>
-
-#include <unicode/coll.h>
-#include <unicode/tblcoll.h>
 
 
 BCollator::BCollator()

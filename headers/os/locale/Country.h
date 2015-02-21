@@ -11,16 +11,11 @@
 #include <String.h>
 #include <SupportDefs.h>
 
+#include <unicode/uloc.h>
 
 class BBitmap;
 class BLanguage;
 class BMessage;
-
-namespace icu {
-	class DateFormat;
-	class Locale;
-}
-
 
 class BCountry {
 public:

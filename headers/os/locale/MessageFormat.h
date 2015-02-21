@@ -8,11 +8,8 @@
 
 #include <Format.h>
 
-
-namespace icu {
-	class MessageFormat;
-	class UnicodeString;
-}
+#include <unicode/msgfmt.h>
+#include <unicode/unistr.h>
 
 
 class BMessageFormat: public BFormat {

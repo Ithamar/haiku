@@ -11,12 +11,9 @@
 #include <String.h>
 #include <TimeUnitFormat.h>
 
+#include <unicode/gregocal.h>
 
 class BTimeZone;
-
-namespace icu {
-	class GregorianCalendar;
-}
 
 
 class BDurationFormat : public BFormat {

@@ -8,11 +8,9 @@
 
 #include <String.h>
 
+#include <unicode/uloc.h>
+#include <unicode/timezone.h>
 
-namespace icu {
-	class Locale;
-	class TimeZone;
-}
 class BLanguage;
 
 

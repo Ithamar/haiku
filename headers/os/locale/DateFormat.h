@@ -13,11 +13,7 @@
 #include <Language.h>
 #include <Locker.h>
 
-
-namespace icu {
-	class DateFormat;
-}
-
+#include <unicode/datefmt.h>
 
 class BString;
 class BTimeZone;
