@@ -1073,8 +1073,8 @@ PathHandler::_EntryCreated(BMessage* message)
 	node_ref nodeRef;
 
 	if (message->FindInt32("device", &nodeRef.device) != B_OK
-		|| message->FindInt64("node", &nodeRef.node) != B_OK
-		|| message->FindInt64("directory", &entryRef.directory) != B_OK
+		|| message->FindInt64("node", (int64*)&nodeRef.node) != B_OK
+		|| message->FindInt64("directory", (int64*)&entryRef.directory) != B_OK
 		|| message->FindString("name", (const char**)&entryRef.name) != B_OK) {
 		return;
 	}
@@ -1105,8 +1105,8 @@ PathHandler::_EntryRemoved(BMessage* message)
 	node_ref nodeRef;
 
 	if (message->FindInt32("device", &nodeRef.device) != B_OK
-		|| message->FindInt64("node", &nodeRef.node) != B_OK
-		|| message->FindInt64("directory", &entryRef.directory) != B_OK
+		|| message->FindInt64("node", (int64*)&nodeRef.node) != B_OK
+		|| message->FindInt64("directory", (int64*)&entryRef.directory) != B_OK
 		|| message->FindString("name", (const char**)&entryRef.name) != B_OK) {
 		return;
 	}
@@ -1131,10 +1131,10 @@ PathHandler::_EntryMoved(BMessage* message)
 	node_ref nodeRef;
 
 	if (message->FindInt32("node device", &nodeRef.device) != B_OK
-		|| message->FindInt64("node", &nodeRef.node) != B_OK
+		|| message->FindInt64("node", (int64*)&nodeRef.node) != B_OK
 		|| message->FindInt32("device", &fromEntryRef.device) != B_OK
-		|| message->FindInt64("from directory", &fromEntryRef.directory) != B_OK
-		|| message->FindInt64("to directory", &toEntryRef.directory) != B_OK
+		|| message->FindInt64("from directory", (int64*)&fromEntryRef.directory) != B_OK
+		|| message->FindInt64("to directory", (int64*)&toEntryRef.directory) != B_OK
 		|| message->FindString("from name", (const char**)&fromEntryRef.name)
 			!= B_OK
 		|| message->FindString("name", (const char**)&toEntryRef.name)
@@ -1352,7 +1352,7 @@ PathHandler::_NodeChanged(BMessage* message)
 	node_ref nodeRef;
 
 	if (message->FindInt32("device", &nodeRef.device) != B_OK
-		|| message->FindInt64("node", &nodeRef.node) != B_OK) {
+		|| message->FindInt64("node", (int64*)&nodeRef.node) != B_OK) {
 		return;
 	}
 
