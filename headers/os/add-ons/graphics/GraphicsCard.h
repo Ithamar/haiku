@@ -146,6 +146,7 @@ int32 control_graphics_card(uint32, void*);
 #endif
 
 
+#ifndef HAIKU_HOST_BUILD_ONLY
 /* #pragma mark - debugging functions */
 
 
@@ -160,6 +161,7 @@ bool set_dprintf_enabled(bool);
 #ifdef __cplusplus
 }
 #endif
+#endif // HAIKU_HOST_BUILD_ONLY
 
 
 /* #pragma mark - deprecated */
