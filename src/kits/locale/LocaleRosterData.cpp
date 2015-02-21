@@ -365,8 +365,10 @@ LocaleRosterData::_InitializeCatalogAddOns()
 						&& strcmp(dent->d_name, "x86") != 0
 						&& strcmp(dent->d_name, "x86_gcc2") != 0) {
 					// we have found (what should be) a catalog-add-on:
+#ifndef HAIKU_HOST_BUILD_ONLY
 					eref.device = dent->d_pdev;
 					eref.directory = dent->d_pino;
+#endif
 					eref.set_name(dent->d_name);
 					entry.SetTo(&eref, true);
 						// traverse through any links to get to the real thang!

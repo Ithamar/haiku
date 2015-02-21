@@ -22,10 +22,14 @@ static const size_t kVariantByteIndex = 8;
 static bool
 init_random_seed()
 {
+#ifndef HAIKU_HOST_BUILD_ONLY
 	// set a time-based seed
 	timespec time;
 	clock_gettime(CLOCK_REALTIME, &time);
 	uint32 seed = (uint32)time.tv_sec ^ (uint32)time.tv_nsec;
+#else
+	uint32 seed = 0;
+#endif
 
 	// factor in a stack address -- with address space layout randomization
 	// that adds a bit of additional randomness

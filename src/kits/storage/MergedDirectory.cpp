@@ -118,8 +118,10 @@ BMergedDirectory::GetNextRef(entry_ref* ref)
 	if (result == 0)
 		return B_ENTRY_NOT_FOUND;
 
+#ifndef HAIKU_HOST_BUILD_ONLY
 	ref->device = entry.d_pdev;
 	ref->directory = entry.d_pino;
+#endif
 	return ref->set_name(entry.d_name);
 }
 
@@ -214,7 +216,12 @@ BMergedDirectory::ShallPreferFirstEntry(const entry_ref& entry1, int32 index1,
 void
 BMergedDirectory::_FindBestEntry(dirent* direntBuffer)
 {
-	entry_ref bestEntry(direntBuffer->d_pdev, direntBuffer->d_pino,
+	entry_ref bestEntry(
+#ifndef HAIKU_HOST_BUILD_ONLY
+		direntBuffer->d_pdev, direntBuffer->d_pino,
+#else
+		0, 0,
+#endif
 		direntBuffer->d_name);
 	if (bestEntry.name == NULL)
 		return;
@@ -227,10 +234,12 @@ BMergedDirectory::_FindBestEntry(dirent* direntBuffer)
 		entry_ref ref;
 		if (entry.GetStat(&st) == B_OK && entry.GetRef(&ref) == B_OK
 			&& !ShallPreferFirstEntry(bestEntry, bestIndex, ref, i)) {
+#ifndef HAIKU_HOST_BUILD_ONLY
 			direntBuffer->d_pdev = ref.device;
 			direntBuffer->d_pino = ref.directory;
 			direntBuffer->d_dev = st.st_dev;
 			direntBuffer->d_ino = st.st_ino;
+#endif
 			bestEntry.device = ref.device;
 			bestEntry.directory = ref.directory;
 			bestIndex = i;

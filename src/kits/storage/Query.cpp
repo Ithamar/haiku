@@ -359,8 +359,10 @@ BQuery::GetNextRef(entry_ref* ref)
 			}
 		}
 		if (error == B_OK) {
+#ifndef HAIKU_HOST_BUILD_ONLY
 			ref->device = entry.d_pdev;
 			ref->directory = entry.d_pino;
+#endif
 			error = ref->set_name(entry.d_name);
 		}
 	}

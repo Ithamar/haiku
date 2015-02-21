@@ -240,8 +240,10 @@ BStatable::GetCreationTime(time_t* ctime) const
 	if (result == B_OK)
 		result = GetStat(&stat);
 
+#ifndef HAIKU_HOST_BUILD_ONLY
 	if (result == B_OK)
 		*ctime = stat.st_crtime;
+#endif
 
 	return result;
 }
@@ -252,8 +254,9 @@ status_t
 BStatable::SetCreationTime(time_t ctime)
 {
 	struct stat stat;
+#ifndef HAIKU_HOST_BUILD_ONLY
 	stat.st_crtime = ctime;
-
+#endif
 	return set_stat(stat, B_STAT_CREATION_TIME);
 }
 
