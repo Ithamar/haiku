@@ -3,6 +3,7 @@
 
 
 #include_next <unistd.h>
+#include <sys/ioctl.h>
 
 
 __BEGIN_DECLS
