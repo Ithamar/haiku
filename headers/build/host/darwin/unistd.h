@@ -7,6 +7,8 @@
 
 __BEGIN_DECLS
 
+extern char **environ;
+
 int faccessat(int fd, const char* path, int accessMode, int flag);
 int fchownat(int fd, const char* path, uid_t owner, gid_t group, int flag);
 ssize_t readlinkat(int fd, const char *path, char *buffer, size_t bufferSize);
