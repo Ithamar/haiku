@@ -615,8 +615,10 @@ LibsolvSolver::_InitPool()
 					return errno;
 				arch = info.machine;
 			#endif
-		#else
+		#elif defined(HAIKU_PACKAGING_ARCH)
 			arch = HAIKU_PACKAGING_ARCH;
+		#else
+			arch = "unknown";
 		#endif
 
 		pool_setarchpolicy(fPool, arch);
