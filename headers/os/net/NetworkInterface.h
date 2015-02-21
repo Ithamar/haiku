@@ -74,7 +74,9 @@ public:
 			int32				Media() const;
 			uint32				Metric() const;
 			uint32				Type() const;
+#ifndef HAIKU_HOST_PLATFORM_DARWIN
 			status_t			GetStats(ifreq_stats& stats);
+#endif
 			bool				HasLink() const;
 
 			status_t			SetFlags(uint32 flags);
@@ -100,6 +102,7 @@ public:
 
 			status_t			GetHardwareAddress(BNetworkAddress& address);
 
+#ifndef HAIKU_HOST_PLATFORM_DARWIN
 			status_t			AddRoute(const route_entry& route);
 			status_t			AddDefaultRoute(const BNetworkAddress& gateway);
 			status_t			RemoveRoute(const route_entry& route);
@@ -108,6 +111,7 @@ public:
 			status_t			RemoveDefaultRoute(int family);
 			status_t			GetRoutes(int family, BObjectList<route_entry>& routes) const;
 			status_t			GetDefaultRoute(int family, BNetworkAddress& gateway) const;
+#endif
 
 			status_t			AutoConfigure(int family);
 
