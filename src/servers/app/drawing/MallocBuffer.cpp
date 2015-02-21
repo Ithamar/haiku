@@ -1,6 +1,6 @@
 // MallocBuffer.h
 
-#include <malloc.h>
+#include <stdlib.h>
 
 #include "MallocBuffer.h"
 
