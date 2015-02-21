@@ -456,20 +456,24 @@ rule FStandardHeaders architecture
 
 	local headers = ;
 
-	# The c++ headers.
-	headers += [ C++HeaderDirectories $(architecture) ] ;
+	if $(HAIKU_HOST_BUILD_ONLY) = 0 {
+		# The c++ headers.
+		headers += [ C++HeaderDirectories $(architecture) ] ;
 
-	# The gcc headers.
-	headers += [ GccHeaderDirectories $(architecture) ] ;
+		# The gcc headers.
+		headers += [ GccHeaderDirectories $(architecture) ] ;
+	}
 
 	# Use headers directory, to allow to do things like include <posix/string.h>
 	headers += [ FDirName $(HAIKU_TOP) headers ] ;
 
-	# Use posix headers directory
-	headers += [ FDirName $(HAIKU_TOP) headers posix ] ;
+	if $(HAIKU_HOST_BUILD_ONLY) = 0 {
+		# Use posix headers directory
+		headers += [ FDirName $(HAIKU_TOP) headers posix ] ;
 
-	# Use glibc headers
-	headers += [ FDirName $(HAIKU_TOP) headers glibc ] ;
+		# Use glibc headers
+		headers += [ FDirName $(HAIKU_TOP) headers glibc ] ;
+	}
 
 	# Use public OS header directories
 	headers += [ FDirName $(HAIKU_TOP) headers os ] ;
