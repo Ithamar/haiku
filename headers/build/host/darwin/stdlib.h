@@ -1,3 +1,8 @@
+#ifndef HAIKU_STDLIB_DARWIN_H
+#define HAIKU_STDLIB_DARWIN_H
+
 #include_next <stdlib.h>
 
-extern "C" int atfork(void (*func)(void));
+static inline int atfork(void (*func)(void)) {}
+
+#endif
