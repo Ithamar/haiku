@@ -6,6 +6,8 @@
 #include <sys/time.h>
 
 
+#define O_RWMASK		O_ACCMODE
+
 /*
  * Magic value that specify the use of the current working directory
  * to determine the target of relative file paths in the openat() and
