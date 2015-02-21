@@ -104,3 +104,30 @@ __find_directory(directory_which which, dev_t device, bool createIt,
 {
 	return find_directory(which, device, createIt, returnedPath, pathLength);
 }
+
+
+status_t
+find_path_etc(const void* codePointer, const char* dependency,
+	const char* architecture, path_base_directory baseDirectory,
+	const char* subPath, uint32 flags, char* pathBuffer, size_t bufferSize)
+{
+	return B_ERROR;
+}
+
+
+status_t
+find_path_for_path_etc(const char* path, const char* dependency,
+	const char* architecture, path_base_directory baseDirectory,
+	const char* subPath, uint32 flags, char* pathBuffer, size_t bufferSize)
+{
+	return B_ERROR;
+}
+
+
+status_t
+find_paths_etc(const char* architecture,
+	path_base_directory baseDirectory, const char* subPath, uint32 flags,
+	char*** _paths, size_t* _pathCount)
+{
+	return B_ERROR;
+}

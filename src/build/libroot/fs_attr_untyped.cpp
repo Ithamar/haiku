@@ -718,7 +718,7 @@ fs_stat_attr(int fd, const char *_attribute, struct attr_info *attrInfo)
 
 // _kern_open_attr_dir
 int
-_kern_open_attr_dir(int fd, const char *path)
+_kern_open_attr_dir(int fd, const char *path, bool traverseLeafLink)
 {
 	// get node ref for the node
 	struct stat st;

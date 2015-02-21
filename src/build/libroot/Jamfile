@@ -10,11 +10,13 @@ UseHeaders [ FDirName $(HAIKU_TOP) headers build os storage ] : true ;
 UseHeaders [ FDirName $(HAIKU_TOP) headers build os support ] : true ;
 
 UsePrivateBuildHeaders kernel system ;
+UsePrivateBuildHeaders shared ;
 
 {
 	local defines = [ FDefines
 		HAIKU_BUILD_ATTRIBUTES_DIR="\\\"$(HAIKU_BUILD_ATTRIBUTES_DIR)\\\""
 		_HAIKU_BUILD_DONT_REMAP_FD_FUNCTIONS=1
+		IRA_USE_KERNEL_SYSCALLS=1
 	] ;
 	SubDirCcFlags $(defines) ;
 	SubDirC++Flags $(defines) ;
@@ -51,10 +53,11 @@ if $(HOST_PLATFORM) = freebsd {
 }
 
 if $(HOST_PLATFORM) = darwin {
-	hostPlatformSources = fs_darwin.cpp ;
+	hostPlatformSources = fs_darwin.cpp init_darwin.cpp ;
 }
 
 local librootSources =
+	area.cpp
 	atomic.cpp
 	byteorder.cpp
 	errors.cpp
@@ -62,16 +65,23 @@ local librootSources =
 	fs.cpp
 	fs_attr.cpp
 	fs_descriptors.cpp
+	fs_stubs.cpp
+	image.cpp
 	misc.cpp
+	port.cpp
 	sem.cpp
+	team.cpp
 	thread.cpp
 
 	$(hostPlatformSources)
 
 	driver_settings.cpp
+	init_once.cpp
+	parsedate.cpp
 
 	$(strlSources)
 	strnlen.cpp
+	syscalls.cpp
 
 	KMessage.cpp
 ;
@@ -96,6 +106,12 @@ BuildPlatformStaticLibraryPIC libroot_build_function_remapper.a :
 	function_remapper.cpp
 ;
 
+SEARCH on [ FGristFiles init_once.cpp ]
+	= [ FDirName $(HAIKU_TOP) src system libroot os locks ] ;
+SEARCH on [ FGristFiles syscalls.cpp ]
+	= [ FDirName $(HAIKU_TOP) src build libhaikucompat ] ;
+SEARCH on [ FGristFiles parsedate.cpp ]
+	= [ FDirName $(HAIKU_TOP) src system libroot os ] ;
 SEARCH on [ FGristFiles driver_settings.cpp ]
 	= [ FDirName $(HAIKU_TOP) src system libroot os ] ;
 SEARCH on [ FGristFiles $(strlSources) strnlen.cpp ]

@@ -1600,3 +1600,18 @@ _haiku_build_renameat(int fromFD, const char* from, int toFD, const char* to)
 
 	RETURN_AND_SET_ERRNO(_kern_rename(fromFD, from, toFD, to));
 }
+
+
+
+extern "C" void
+convert_to_stat_beos(const struct stat* stat, struct stat_beos* beosStat)
+{
+	debugger("convert_to_stat_beos: should not be here!");
+}
+
+extern "C" void
+convert_from_stat_beos(const struct stat_beos* beosStat, struct stat* stat)
+{
+	debugger("convert_from_stat_beos: should not be here!");
+}
+

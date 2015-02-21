@@ -29,7 +29,7 @@ _kern_find_partition(const char *filename, size_t *neededSize)
 
 status_t
 _kern_get_disk_device_data(partition_id deviceID, bool deviceOnly,
-	bool shadow, struct user_disk_device_data *buffer, size_t bufferSize,
+	struct user_disk_device_data *buffer, size_t bufferSize,
 	size_t *neededSize)
 {
 	return B_ERROR;
@@ -48,6 +48,21 @@ _kern_unregister_file_device(partition_id deviceID, const char *filename)
 {
 	return B_ERROR;
 }
+
+
+partition_id
+_kern_find_file_disk_device(const char *filename, size_t *neededSize)
+{
+	return B_ERROR;
+}
+
+
+status_t
+_kern_get_file_disk_device_path(partition_id id, char* buffer, size_t bufferSize)
+{
+	return B_ERROR;
+}
+
 
 // #pragma mark - disk systems
 
@@ -190,8 +205,9 @@ _kern_validate_resize_partition(partition_id partitionID, int32 changeCounter,
 
 
 status_t
-_kern_validate_move_partition(partition_id partitionID, int32 changeCounter,
-	off_t *newOffset)
+_kern_validate_move_partition(partition_id partitionID, int32* changeCounter, partition_id childID,
+				int32* childChangeCounter, off_t newOffset, partition_id* descendantIDs,
+				int32* descendantChangeCounters, int32 descendantCount)
 {
 	return B_ERROR;
 }
@@ -214,8 +230,8 @@ _kern_validate_set_partition_content_name(partition_id partitionID,
 
 
 status_t
-_kern_validate_set_partition_type(partition_id partitionID, int32 changeCounter,
-	const char *type)
+_kern_set_partition_type(partition_id partitionID, int32* changeCounter,
+			partition_id childID, int32* childChangeCounter, const char* type)
 {
 	return B_ERROR;
 }
@@ -294,14 +310,14 @@ _kern_is_disk_device_modified(partition_id deviceID)
 
 
 status_t
-_kern_defragment_partition(partition_id partitionID, int32 changeCounter)
+_kern_defragment_partition(partition_id partitionID, int32* changeCounter)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_repair_partition(partition_id partitionID, int32 changeCounter,
+_kern_repair_partition(partition_id partitionID, int32* changeCounter,
 	bool checkOnly)
 {
 	return B_ERROR;
@@ -309,24 +325,25 @@ _kern_repair_partition(partition_id partitionID, int32 changeCounter,
 
 
 status_t
-_kern_resize_partition(partition_id partitionID, int32 changeCounter,
-	off_t size)
+_kern_resize_partition(partition_id partitionID, int32* changeCounter, partition_id childID,
+				int32* childChangeCounter, off_t size, off_t contentSize)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_move_partition(partition_id partitionID, int32 changeCounter,
-	off_t newOffset)
+_kern_move_partition(partition_id partitionID, int32* changeCounter, partition_id childID,
+	int32* childChangeCounter, off_t newOffset, partition_id* descendantIDs,
+	int32* descendantChangeCounters, int32 descendantCount)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_set_partition_name(partition_id partitionID, int32 changeCounter,
-	const char *name)
+_kern_set_partition_name(partition_id partitionID, int32* changeCounter,
+	partition_id childID, int32* childChangeCounter, const char *name)
 {
 	return B_ERROR;
 }
@@ -334,7 +351,7 @@ _kern_set_partition_name(partition_id partitionID, int32 changeCounter,
 
 status_t
 _kern_set_partition_content_name(partition_id partitionID,
-	int32 changeCounter, const char *name)
+	int32* changeCounter, const char *name)
 {
 	return B_ERROR;
 }
@@ -349,8 +366,8 @@ _kern_set_partition_type(partition_id partitionID, int32 changeCounter,
 
 
 status_t
-_kern_set_partition_parameters(partition_id partitionID, int32 changeCounter,
-	const char *parameters, size_t parametersSize)
+_kern_set_partition_parameters(partition_id partitionID, int32* changeCounter,
+	partition_id childID, int32* childChangeCounter, const char *parameters)
 {
 	return B_ERROR;
 }
@@ -358,39 +375,38 @@ _kern_set_partition_parameters(partition_id partitionID, int32 changeCounter,
 
 status_t
 _kern_set_partition_content_parameters(partition_id partitionID,
-	int32 changeCounter, const char *parameters, size_t parametersSize)
+	int32* changeCounter, const char *parameters)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_initialize_partition(partition_id partitionID, int32 changeCounter,
-	const char *diskSystemName, const char *name, const char *parameters,
-	size_t parametersSize)
+_kern_initialize_partition(partition_id partitionID, int32* changeCounter,
+	const char *diskSystemName, const char *name, const char *parameters)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_uninitialize_partition(partition_id partitionID, int32 changeCounter)
+_kern_uninitialize_partition(partition_id partitionID, int32* changeCounter)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_create_child_partition(partition_id partitionID, int32 changeCounter,
-	off_t offset, off_t size, const char *type, const char *parameters,
-	size_t parametersSize, partition_id *childID)
+_kern_create_child_partition(partition_id partitionID, int32* changeCounter,
+	off_t offset, off_t size, const char *type, const char *name,
+	const char *parameters, partition_id *childID, int32* childChangeCounter)
 {
 	return B_ERROR;
 }
 
 
 status_t
-_kern_delete_partition(partition_id partitionID, int32 changeCounter)
+_kern_delete_partition(partition_id partitionID, int32* changeCounter)
 {
 	return B_ERROR;
 }
@@ -443,6 +459,23 @@ _kern_cancel_disk_device_job(disk_job_id id, bool reverse)
 {
 	return B_ERROR;
 }
+
+
+// #pragma mark - change notification
+
+
+status_t
+_kern_start_watching_disks(uint32 eventMask, port_id port, int32 token)
+{
+	return B_ERROR;
+}
+
+status_t
+_kern_stop_watching_disks(port_id port, int32 token)
+{
+	return B_ERROR;
+}
+
 
 // #pragma mark - other syscalls
 
