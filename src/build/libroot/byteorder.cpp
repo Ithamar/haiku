@@ -17,6 +17,7 @@ __swap_float(float x)
 	return *(float *)&temp2;
 }
 
+#if 0
 uint16
 __swap_int16(uint16 value)
 {
@@ -36,3 +37,4 @@ __swap_int64(uint64 value)
 	return uint64(__swap_int32(uint32(value >> 32)))
 		| (uint64(__swap_int32(uint32(value))) << 32);
 }
+#endif

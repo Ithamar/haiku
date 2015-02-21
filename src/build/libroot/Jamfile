@@ -1,16 +1,7 @@
 SubDir HAIKU_TOP src build libroot ;
 
-UseHeaders [ FDirName $(HAIKU_TOP) headers build ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os app ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os drivers ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os kernel ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os interface ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os storage ] : true ;
-UseHeaders [ FDirName $(HAIKU_TOP) headers build os support ] : true ;
-
-UsePrivateBuildHeaders kernel system ;
-UsePrivateBuildHeaders shared ;
+UsePrivateHeaders kernel system ;
+UsePrivateHeaders shared ;
 
 {
 	local defines = [ FDefines
@@ -60,7 +51,7 @@ local librootSources =
 	area.cpp
 	atomic.cpp
 	byteorder.cpp
-	errors.cpp
+#	errors.cpp
 	find_directory.cpp
 	fs.cpp
 	fs_attr.cpp

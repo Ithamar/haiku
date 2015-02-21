@@ -596,16 +596,7 @@ if $(HOST_PLATFORM) = darwin {
 
 HOST_BE_API_HEADERS =
 	[ FDirName $(HAIKU_TOP) headers build ]
-	[ FDirName $(HAIKU_TOP) headers build os ]
-	[ FDirName $(HAIKU_TOP) headers build os add-ons registrar ]
-	[ FDirName $(HAIKU_TOP) headers build os app ]
-	[ FDirName $(HAIKU_TOP) headers build os drivers ]
-	[ FDirName $(HAIKU_TOP) headers build os kernel ]
-	[ FDirName $(HAIKU_TOP) headers build os interface ]
-	[ FDirName $(HAIKU_TOP) headers build os locale ]
-	[ FDirName $(HAIKU_TOP) headers build os storage ]
-	[ FDirName $(HAIKU_TOP) headers build os support ]
-	[ FDirName $(HAIKU_TOP) headers build private ]
+	[ FStandardHeaders "" ]
 ;
 if ! $(HOST_PLATFORM_BEOS_COMPATIBLE) {
 	HOST_BE_API_CCFLAGS = -include BeOSBuildCompatibility.h ;
