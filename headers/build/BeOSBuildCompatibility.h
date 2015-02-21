@@ -88,6 +88,7 @@ extern ssize_t	writev_pos(int fd, off_t pos, const struct iovec* vec,
 #endif
 
 
+#ifndef HAIKU_HOST_BUILD_ONLY
 // remap strerror()
 extern char* _haiku_build_strerror(int errnum);
 
@@ -97,6 +98,7 @@ extern char* _haiku_build_strerror(int errnum);
 #define strerror(errnum)	_haiku_build_strerror(errnum)
 
 #endif	// BUILDING_HAIKU_ERROR_MAPPER
+#endif
 
 
 // remap file descriptor functions
