@@ -673,6 +673,15 @@ BNode::_GetStat(struct stat_beos* stat) const
 
 //	#pragma mark - symbol versions
 
+#if HAIKU_HOST_BUILD_ONLY
+
+status_t
+BNode::GetStat(struct stat* stat) const
+{
+	return _GetStat(stat);
+}
+
+#else
 
 #ifdef HAIKU_TARGET_PLATFORM_LIBBE_TEST
 #	if __GNUC__ == 2	// gcc 2
@@ -709,3 +718,5 @@ BNode::_GetStat(struct stat_beos* stat) const
 
 #	endif	// gcc 4
 #endif	// !HAIKU_TARGET_PLATFORM_LIBBE_TEST
+
+#endif // HAIKU_HOST_BUILD_ONLY
