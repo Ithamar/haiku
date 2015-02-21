@@ -8,7 +8,9 @@
 
 #include <net/if_dl.h>
 #include <netinet/in.h>
+#ifndef HAIKU_HOST_BUILD_ONLY
 #include <netinet6/in6.h>
+#endif
 #include <sys/socket.h>
 
 #include <Archivable.h>
