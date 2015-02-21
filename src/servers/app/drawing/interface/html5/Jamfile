@@ -17,7 +17,7 @@ Includes [ FGristFiles HTML5HWInterface.cpp HTML5DrawingEngine.cpp
 		CanvasMessage.cpp ]
 	: [ BuildFeatureAttribute freetype : headers ] ;
 
-StaticLibrary libashtml5.a :
+local sources =
 	base64.cpp
 
 	#NetReceiver.cpp
@@ -34,3 +34,9 @@ StaticLibrary libashtml5.a :
 	WebServer.cpp
 	WebWorker.cpp
 ;
+
+StaticLibrary libashtml5.a : $(sources) ;
+
+# Build host library
+USES_BE_API on libashtml5_build.a = true ;
+BuildPlatformStaticLibrary libashtml5_build.a : $(sources) ;

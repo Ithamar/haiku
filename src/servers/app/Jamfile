@@ -46,7 +46,7 @@ if $(TARGET_ARCH) != x86_64 {
     BROKEN_64 = "" ;
 }
 
-Server app_server :
+local main_src =
 	Angle.cpp
 	AppServer.cpp
 	#BitfieldRegion.cpp
@@ -90,7 +90,10 @@ Server app_server :
 	WindowList.cpp
 	Workspace.cpp
 	WorkspacesView.cpp
+	;
 
+Server app_server :
+	$(main_src)
 	$(decorator_src)
 	$(font_src)
 
@@ -106,9 +109,25 @@ Server app_server :
 	: app_server.rdef
 ;
 
-SEARCH on [ FGristFiles $(decorator_src) ] = [ FDirName $(HAIKU_TOP) src servers app decorator ] ;
-SEARCH on [ FGristFiles $(font_src) ] = [ FDirName $(HAIKU_TOP) src servers app font ] ;
+#SEARCH on [ FGristFiles $(decorator_src) ] = [ FDirName $(HAIKU_TOP) src servers app decorator ] ;
+#SEARCH on [ FGristFiles $(font_src) ] = [ FDirName $(HAIKU_TOP) src servers app font ] ;
 
+SEARCH_SOURCE += [ FDirName $(SUBDIR) decorator ] ;
+SEARCH_SOURCE += [ FDirName $(SUBDIR) font ] ;
+
+HOST_HDRS += /usr/local/include/freetype2 ; # XXX brew installation of freetype2 on OSX
+USES_BE_API on <build>app_server = true ;
+BuildPlatformMain <build>app_server :
+	$(main_src)
+	$(decorator_src)
+	$(font_src)
+	:
+	libaslocal_build.a $(BROKEN_64)libasremote_build.a $(BROKEN_64)libashtml5_build.a
+	libasdrawing_build.a  libpainter_build.a libagg_build.a
+	freetype
+	libstackandtile_build.a liblinprog_build.a
+	$(HOST_LIBSTDC++) $(HOST_LIBSUPC++) $(HOST_LIBBE)
+;
 
 SubInclude HAIKU_TOP src servers app drawing ;
 SubInclude HAIKU_TOP src servers app stackandtile ;

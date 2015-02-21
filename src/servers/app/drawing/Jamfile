@@ -15,7 +15,7 @@ UseBuildFeatureHeaders freetype ;
 Includes [ FGristFiles AlphaMask.cpp DrawingEngine.cpp ]
 	: [ BuildFeatureAttribute freetype : headers ] ;
 
-StaticLibrary libasdrawing.a :
+local sources =
 	AlphaMask.cpp
 	BitmapBuffer.cpp
 	BitmapDrawingEngine.cpp
@@ -30,6 +30,12 @@ StaticLibrary libasdrawing.a :
 	BBitmapBuffer.cpp
 	HWInterface.cpp
 ;
+
+StaticLibrary libasdrawing.a : $(sources) ;
+
+# Build host library
+USES_BE_API on libasdrawing_build.a = true ;
+BuildPlatformStaticLibrary libasdrawing_build.a : $(sources) ;
 
 SubInclude HAIKU_TOP src servers app drawing Painter ;
 SubInclude HAIKU_TOP src servers app drawing interface ;

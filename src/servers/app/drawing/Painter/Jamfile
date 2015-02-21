@@ -21,7 +21,7 @@ if $(TARGET_ARCH) = x86 {
 Includes [ FGristFiles AGGTextRenderer.cpp Painter.cpp ]
 	: [ BuildFeatureAttribute freetype : headers ] ;
 
-StaticLibrary libpainter.a :
+local sources =
 	GlobalSubpixelSettings.cpp
 	Painter.cpp
 	Transformable.cpp
@@ -33,3 +33,9 @@ StaticLibrary libpainter.a :
 
 	$(PAINTER_ARCH_SOURCES)
 ;
+
+StaticLibrary libpainter.a : $(sources) ;
+
+# Build host library
+USES_BE_API on libpainter_build.a = true ;
+BuildPlatformStaticLibrary libpainter_build.a : $(sources) ;

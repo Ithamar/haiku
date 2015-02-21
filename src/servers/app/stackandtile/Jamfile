@@ -26,3 +26,7 @@ Includes [ FGristFiles $(sources) ]
 StaticLibrary libstackandtile.a :
 	$(sources)
 ;
+
+# Build host library
+USES_BE_API on libstackandtile_build.a = true ;
+BuildPlatformStaticLibrary libstackandtile_build.a : $(sources) ;

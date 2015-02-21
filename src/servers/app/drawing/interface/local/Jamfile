@@ -12,7 +12,15 @@ UseHeaders [ FDirName $(HAIKU_TOP) src servers app drawing Painter ] ;
 UseHeaders [ FDirName $(HAIKU_TOP) src servers app drawing Painter drawing_modes ] ;
 UseHeaders [ FDirName $(HAIKU_TOP) src servers app drawing Painter font_support ] ;
 
-StaticLibrary libaslocal.a :
+local sources =
 	AccelerantBuffer.cpp
 	AccelerantHWInterface.cpp
 ;
+
+StaticLibrary libaslocal.a : $(sources) ;
+
+UsePrivateHeaders system ;
+
+# Build host library
+USES_BE_API on libaslocal_build.a = true ;
+BuildPlatformStaticLibrary libaslocal_build.a : $(sources) ;

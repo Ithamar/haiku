@@ -17,7 +17,7 @@ Includes [ FGristFiles RemoteDrawingEngine.cpp RemoteMessage.cpp
 		RemoteHWInterface.cpp ]
 	: [ BuildFeatureAttribute freetype : headers ] ;
 
-StaticLibrary libasremote.a :
+local sources =
 	NetReceiver.cpp
 	NetSender.cpp
 
@@ -28,3 +28,10 @@ StaticLibrary libasremote.a :
 
 	StreamingRingBuffer.cpp
 ;
+
+
+StaticLibrary libasremote.a : $(sources) ;
+
+# Build host library
+USES_BE_API on libasremote_build.a = true ;
+BuildPlatformStaticLibrary libasremote_build.a : $(sources) ;
