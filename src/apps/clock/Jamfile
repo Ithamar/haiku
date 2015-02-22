@@ -10,6 +10,14 @@ Application Clock :
 	: Clock.rdef
 	;
 
+USES_BE_API on <build>Clock = true ;
+BuildPlatformMain <build>Clock :
+	cl_view.cpp
+	cl_wind.cpp
+	clock.cpp
+	: $(HOST_LIBBE) liblocalestub_build.a $(HOST_LIBSTDC++) $(HOST_LIBSUPC++)
+;
+
 DoCatalogs Clock :
 	x-vnd.Haiku-Clock
 	:
