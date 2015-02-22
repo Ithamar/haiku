@@ -52,18 +52,20 @@ local sources =
 	Variant.cpp
 	;
 
-Includes [ FGristFiles Keymap.cpp ]
-	: <src!servers!input>SystemKeymap.h ;
-
 local architectureObject ;
 for architectureObject in [ MultiArchSubDirSetup ] {
 	on $(architectureObject) {
 		local architecture = $(TARGET_PACKAGING_ARCH) ;
+
+		Includes [ FGristFiles Keymap.cpp ]
+			: <src!servers!input>SystemKeymap.h ;
+
 		StaticLibrary [ MultiArchDefaultGristFiles libshared.a ] : $(sources) ;
 	}
 }
 
 USES_BE_API on libshared_build.a = true ;
+UsePrivateHeaders system ;
 BuildPlatformStaticLibraryPIC libshared_build.a : $(sources) ;
 
 UseLibraryHeaders mapm ;

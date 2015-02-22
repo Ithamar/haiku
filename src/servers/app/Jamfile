@@ -122,11 +122,12 @@ BuildPlatformMain <build>app_server :
 	$(decorator_src)
 	$(font_src)
 	:
+	$(HOST_LIBBE)
 	libaslocal_build.a $(BROKEN_64)libasremote_build.a $(BROKEN_64)libashtml5_build.a
 	libasdrawing_build.a  libpainter_build.a libagg_build.a
 	freetype
-	libstackandtile_build.a liblinprog_build.a
-	$(HOST_LIBSTDC++) $(HOST_LIBSUPC++) $(HOST_LIBBE)
+	libstackandtile_build.a liblinprog_build.a libshared_build.a
+	$(HOST_LIBSTDC++) $(HOST_LIBSUPC++)
 ;
 
 SubInclude HAIKU_TOP src servers app drawing ;

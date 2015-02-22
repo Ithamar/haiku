@@ -167,4 +167,4 @@ for architectureObject in [ MultiArchSubDirSetup ] {
 
 USES_BE_API on <libbe_build>interface_kit.o = true ;
 SEARCH_SOURCE += [ FDirName $(HAIKU_TOP) src kits shared ] ;
-BuildPlatformMergeObjectPIC <libbe_build>interface_kit.o : $(sources) DragTrackingFilter.cpp ;
+BuildPlatformMergeObjectPIC <libbe_build>interface_kit.o : $(sources) : libshared_build.a ;
