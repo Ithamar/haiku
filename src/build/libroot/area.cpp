@@ -34,7 +34,6 @@ _get_area_info(area_id id, area_info *areaInfo, size_t size)
 	return B_ERROR;
 }
 
-#if 0
 status_t
 resize_area(area_id id, size_t newSize)
 {
@@ -58,4 +57,3 @@ status_t _get_next_area_info(team_id team, ssize_t *cookie, area_info *areaInfo,
 {
 	return B_ERROR;
 }
-#endif

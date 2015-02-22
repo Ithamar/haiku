@@ -2,6 +2,7 @@
 #include <BeOSBuildCompatibility.h>
 
 #include <OS.h>
+#include <debugger.h>
 
 static const thread_id kMainThreadID = 3;
 
@@ -68,6 +69,12 @@ rename_thread(thread_id thread, const char *newName)
 void
 exit_thread(status_t status)
 {
+}
+
+status_t
+debug_thread(thread_id thread)
+{
+	return B_ERROR;
 }
 
 status_t

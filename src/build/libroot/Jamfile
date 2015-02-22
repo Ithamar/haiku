@@ -60,6 +60,7 @@ local librootSources =
 	image.cpp
 	misc.cpp
 	port.cpp
+	rtc.cpp
 	sem.cpp
 	team.cpp
 	thread.cpp
