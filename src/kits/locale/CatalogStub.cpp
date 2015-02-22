@@ -17,11 +17,13 @@ static int32 sCatalogInitOnce = INIT_ONCE_UNINITIALIZED;
 BCatalog*
 BLocaleRoster::GetCatalog()
 {
+#ifndef HAIKU_HOST_BUILD_ONLY
 	#if (__GNUC__ < 3)
 		asm volatile(".hidden GetCatalog__13BLocaleRoster");
 	#else
 		asm volatile(".hidden _ZN13BLocaleRoster10GetCatalogEv");
 	#endif
+#endif
 
 	return _GetCatalog(&sCatalog, &sCatalogInitOnce);
 }
