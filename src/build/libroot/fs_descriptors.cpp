@@ -521,6 +521,9 @@ add_descriptor(Descriptor *descriptor)
 status_t
 delete_descriptor(int fd)
 {
+	if (sDescriptors == NULL)
+		return B_FILE_ERROR;
+
 	DescriptorMap::iterator it = sDescriptors->find(fd);
 	if (it == sDescriptors->end())
 		return B_FILE_ERROR;
