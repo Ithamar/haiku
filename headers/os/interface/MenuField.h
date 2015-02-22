@@ -108,7 +108,7 @@ private:
 private:
 	class LabelLayoutItem;
 	class MenuBarLayoutItem;
-	struct LayoutData;
+	class LayoutData;
 
 	friend class _BMCMenuBar_;
 	friend class LabelLayoutItem;

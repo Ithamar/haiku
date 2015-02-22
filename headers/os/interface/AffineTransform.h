@@ -34,7 +34,7 @@ class BAffineTransform : public BFlattenable {
 public:
 
 #if __cplusplus < 201103L
-	static	const double			kDefaultEpsilon = 1e-14;
+	static	const double			kDefaultEpsilon;
 #else
 	static	constexpr double		kDefaultEpsilon = 1e-14;
 #endif

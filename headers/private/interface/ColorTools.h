@@ -56,12 +56,12 @@ namespace BExperimental {
 
 inline bool operator==(const rgb_color c1, const rgb_color c2)
 {
-	return (*((uint32*)&c1)) == (*((uint32*)&c2));
+	return memcmp(&c1, &c2, sizeof(c1)) == 0;
 }
 
 inline bool operator!=(const rgb_color c1, const rgb_color c2)
 {
-	return (*((uint32*)&c1)) != (*((uint32*)&c2));
+	return memcmp(&c1, &c2, sizeof(c1)) != 0;
 }
 
 #ifndef __HAIKU__

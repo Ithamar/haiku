@@ -433,7 +433,8 @@ BString::Length() const
 {
 	// the most significant bit is reserved; accessing
 	// it in any way will cause the computer to explode
-	return fPrivateData ? (*(((int32*)fPrivateData) - 1) & 0x7fffffff) : 0;
+	void *ptr = fPrivateData - sizeof(int32);
+	return fPrivateData ? (*(int32*)ptr) & 0x7fffffff : 0;
 }
 
 

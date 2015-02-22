@@ -34,7 +34,8 @@ public:
 
 	static int32& DataRefCount(char* data)
 	{
-		return *(((int32 *)data) - 2);
+		void *ptr = data - 2 * sizeof(int32);
+		return *(int32 *)ptr;
 	}
 
 	int32& DataRefCount()
@@ -44,7 +45,8 @@ public:
 
 	static int32& DataLength(char* data)
 	{
-		return *(((int32*)data) - 1);
+		void *ptr = data - sizeof(int32);
+		return *(int32 *)ptr;
 	}
 
 	int32& DataLength()

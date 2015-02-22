@@ -19,9 +19,7 @@ typedef struct pattern {
 inline bool
 operator==(const pattern& a, const pattern& b)
 {
-	uint64* pa = (uint64*)a.data;
-	uint64* pb = (uint64*)b.data;
-	return (*pa == *pb);
+	return memcmp(&a, &b, sizeof(a)) == 0;
 }
 
 
@@ -60,13 +58,13 @@ typedef struct rgb_color {
 	inline bool
 	operator==(const rgb_color& other) const
 	{
-		return *(const uint32 *)this == *(const uint32 *)&other;
+		return memcmp(this, &other, sizeof(uint32)) == 0;
 	}
 
 	inline bool
 	operator!=(const rgb_color& other) const
 	{
-		return *(const uint32 *)this != *(const uint32 *)&other;
+		return memcmp(this, &other, sizeof(uint32)) != 0;
 	}
 
 	inline rgb_color&

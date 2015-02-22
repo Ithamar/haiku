@@ -27,6 +27,7 @@
 
 
 const BAffineTransform B_AFFINE_IDENTITY_TRANSFORM;
+const double BAffineTransform::kDefaultEpsilon = 1e-14;
 
 
 BAffineTransform::BAffineTransform()
