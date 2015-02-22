@@ -69,6 +69,8 @@ for architectureObject in [ MultiArchSubDirSetup ] {
 	}
 }
 
-# Build host library
+# Build host libraries
 USES_BE_API on <libbe_build>locale_kit.o = true ;
 BuildPlatformMergeObjectPIC <libbe_build>locale_kit.o : $(sources) ;
+USES_BE_API on liblocalestub_build.a = true ;
+BuildPlatformStaticLibrary liblocalestub_build.a : CatalogStub.cpp ;
