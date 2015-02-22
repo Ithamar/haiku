@@ -16,6 +16,8 @@
 
 mode_t __gUmask = 022;
 
+bool _rtDebugFlag = true;
+
 // debugger
 void
 debugger(const char *message)
