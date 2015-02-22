@@ -63,8 +63,8 @@ snooze(bigtime_t amount)
 	int64 secs = amount / 1000000LL;
 	int64 usecs = amount % 1000000LL;
 	if (secs > 0) {
-		if (sleep((unsigned)secs) < 0)
-			return errno;
+		while((secs=sleep((unsigned)secs)) > 0)
+			;
 	}
 
 	if (usecs > 0) {
